@@ -16,6 +16,7 @@
 
 package android.app.admin;
 
+import android.accounts.Account;
 import android.annotation.ColorInt;
 import android.annotation.IntDef;
 import android.annotation.NonNull;
@@ -104,6 +105,25 @@ public class DevicePolicyManager {
                 IDevicePolicyManager.Stub.asInterface(
                         ServiceManager.getService(Context.DEVICE_POLICY_SERVICE)),
                 parentInstance);
+    }
+
+    /**
+     * Called when a managed profile has been provisioned.
+     *
+     * @throws SecurityException if the caller does not hold
+     * {@link android.Manifest.permission#MANAGE_PROFILE_AND_DEVICE_OWNERS}.
+     * @hide
+     */
+    public void finalizeWorkProfileProvisioning(
+            @NonNull UserHandle managedProfileUser, @Nullable Account migratedAccount) {
+        if (mService == null) {
+            throw new IllegalStateException("Could not find DevicePolicyManagerService");
+        }
+        try {
+            mService.finalizeWorkProfileProvisioning(managedProfileUser, migratedAccount);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
     }
 
     /** @hide */
