@@ -529,7 +529,8 @@ public class AccessibilityManagerService extends IAccessibilityManager.Stub {
                     Service service = services.get(i);
                     // Don't report the UIAutomation (fake service)
                     if (!sFakeAccessibilityServiceComponentName.equals(service.mComponentName)
-                            && (service.mFeedbackType & feedbackTypeBit) != 0) {
+                            && (service.mFeedbackType & feedbackTypeBit) != 0
+                                || feedbackType == AccessibilityServiceInfo.FEEDBACK_ALL_MASK) {
                         result.add(service.mAccessibilityServiceInfo);
                     }
                 }
