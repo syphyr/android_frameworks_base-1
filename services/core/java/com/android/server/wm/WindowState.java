@@ -1966,6 +1966,10 @@ final class WindowState implements WindowManagerPolicy.WindowState {
         return true;
     }
 
+    boolean isForceHiddenNonSystemOverlayWindow() {
+        return mForceHideNonSystemOverlayWindow;
+    }
+
     void setForceHideNonSystemOverlayWindowIfNeeded(boolean forceHide) {
         if (mOwnerCanAddInternalSystemWindow
                 || (!isSystemAlertWindowType(mAttrs.type) && mAttrs.type != TYPE_TOAST)) {
